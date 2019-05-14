@@ -1,0 +1,13 @@
+Generated-Images-299x299/*.png
+Generated-Images-299x299/*.jpg
+target_images/*.jpg
+target_serial/*
+generated/*
+generated-for-detection/*
+generated-for-detection2/*
+generated-for-classification/*
+generated-for-classification2/*
+generated-for-tesseract/*
+Backgrounds/*.jpg
+Backgrounds/*.jpeg
+.state.txt
