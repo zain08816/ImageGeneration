@@ -10,8 +10,10 @@ import time
 import sys
 from generate_images_for_classification_for1819 import choose_random_target_parameters, generate_target
 
+import threading
+
 parser = argparse.ArgumentParser()
-parser.add_argument('--num_pics',default=10,type=int,help='num images to generate')
+parser.add_argument('--num_pics',default=1000,type=int,help='num images to generate')
 parser.add_argument('--image_length',default=1000,type=int,help='Length dimension of output images')
 parser.add_argument('--image_height',default=600,type=int,help='Height dimension of output images')
 parser.add_argument('--datadir',default="generated-for-detection",type=str,help='Generated Image dir')
@@ -657,12 +659,33 @@ if __name__ == '__main__':
 
 
 	# Keep track of the number of images generated
+
+	threads = []
+
+
+
 	count = 0
-	for i in range(NUM_IMAGES_TO_GENERATE):
-		print("Generating image #" + str(count+1) + "/" + str(NUM_IMAGES_TO_GENERATE))
-		# Generate the save filepath for the image and json file using the system time and count
-		img_savepath = PIC_SAVE_DIR + timestamp + "-" + str(count+1) + ".jpg"
-		label_savepath = LABEL_SAVE_DIR + timestamp + "-" + str(count+1) + ".json"
-		# Generate the image. Pass in all the savepaths, iterated parameters, and randomized parameters
-		generate_image(img_savepath, label_savepath)
-		count += 1
+	# for i in range(NUM_IMAGES_TO_GENERATE):
+	# 	print("Generating image #" + str(count+1) + "/" + str(NUM_IMAGES_TO_GENERATE))
+	# 	# Generate the save filepath for the image and json file using the system time and count
+	# 	img_savepath = PIC_SAVE_DIR + timestamp + "-" + str(count+1) + ".jpg"
+	# 	label_savepath = LABEL_SAVE_DIR + timestamp + "-" + str(count+1) + ".json"
+	# 	# Generate the image. Pass in all the savepaths, iterated parameters, and randomized parameters
+	# 	generate_image(img_savepath, label_savepath)
+	# 	count += 1
+
+	total = int(NUM_IMAGES_TO_GENERATE/10)
+
+	for i in range(total):
+		for z in range(10):
+			print("Generating image #" + str(count+1) + "/" + str(NUM_IMAGES_TO_GENERATE))
+			img_savepath = PIC_SAVE_DIR + timestamp + "-" + str(count+1) + ".jpg"
+			label_savepath = LABEL_SAVE_DIR + timestamp + "-" + str(count+1) + ".json"
+			thread = threading.Thread(target=generate_image, args=(img_savepath,label_savepath))
+			threads.append(thread)
+			thread.start()
+			count += 1
+
+		for x in threads:
+			x.join()
+		theards = []
