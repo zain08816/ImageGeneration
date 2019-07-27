@@ -13,7 +13,7 @@ from generate_images_for_classification_for1819 import choose_random_target_para
 import threading
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--num_pics',default=1000,type=int,help='num images to generate')
+parser.add_argument('--num_pics',default=10,type=int,help='num images to generate')
 parser.add_argument('--image_length',default=1000,type=int,help='Length dimension of output images')
 parser.add_argument('--image_height',default=600,type=int,help='Height dimension of output images')
 parser.add_argument('--datadir',default="generated-for-detection",type=str,help='Generated Image dir')
