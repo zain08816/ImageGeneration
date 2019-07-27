@@ -15,7 +15,6 @@ import sys
 
 
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--num_pics_per_class',default=1,type=int,help='num images to generate per class')
 parser.add_argument('--image_length',default=150,type=int,help='Length dimension of output images')
